@@ -1,3 +1,6 @@
+let openedWindows = JSON.parse(localStorage.getItem('openedWindow')) || [0];
+console.log(openedWindows);
+
 //melange de Fisher-Yates
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -40,7 +43,7 @@ function createAllWindowElement(){
     function createWindow(element){
         let windowBtn = document.createElement('button');
         windowBtn.classList.add('window');
-        windowBtn.setAttribute('data-attribute', element.id);
+        windowBtn.setAttribute('data-id', element.id);
         windowBtn.style.backgroundColor = element.color
         windowBtn.innerHTML = element.id
 
@@ -50,5 +53,41 @@ function createAllWindowElement(){
     //pour chaque objet window dans windows (donc 24), créer une fenetre
     windows.forEach(window => {createWindow(window)});
 }
-// localStorage.clear();
+
 createAllWindowElement()
+
+const windows = document.querySelectorAll('.window') //tous les elements dom nouvellement créés
+
+// ajoute la fenetre au localstorage
+function addOpenWindow(windowId){
+    
+    // il faut avoir ouvert la fenetre du jour d'avant
+    if(openedWindows.includes(windowId-1)){
+        openedWindows.push(Number(windowId))
+    } else {
+        console.log("veuillez ouvrir la fenetre d'avant!");
+    }
+
+    //met à jour le localstorage
+    localStorage.setItem('openedWindow', JSON.stringify(openedWindows)); 
+}
+
+// ecouteur d'evenement pour chaque fenetre
+windows.forEach(button => {
+    button.addEventListener('click', function(){
+        // si la fenetre n'est pas déjà ouverte appel de la fonction addopenwindow
+        openedWindows.includes(button.dataset.id) ? console.log("Fenetre déjà ouverte") : addOpenWindow(button.dataset.id)
+    })
+})
+
+//recommencer le calendrier
+function clearLocal(){
+    const clearLocalBtn = document.getElementById('clearLocal')
+    
+    clearLocalBtn.addEventListener("click", () => {
+        localStorage.clear();
+        window.alert("Calendrier remis à 0")
+    })
+}
+
+clearLocal()
