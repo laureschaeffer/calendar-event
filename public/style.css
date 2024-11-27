@@ -1,14 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "Cinzel", serif;
+    font-family: "Nanum Gothic", sans-serif;
+}
+#wrapper {
+    background-image: url('christmas-5740363_1280.png');
+    height: 100vh; 
+    width: 100%;
+    padding-top: 5rem;
+    /* background-repeat: no-repeat; 
+    background-size: 100% 100%; 
+    background-position: center;  */
 }
 
 h1{
     text-align: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+#p__clearLocal{
+    text-align: center;
+    margin-top: 2rem;
 }
 
 #calendar{
@@ -28,8 +44,79 @@ h1{
     cursor: pointer;
     border: none;
     border-radius: 0.5rem;
+    font-size: 1.2rem;
 }
 
 .open{
-    border: 2px solid black;
+    border: 2px solid white;
+    cursor: initial;
+    background-color: transparent !important;
+    color: white;
 }
+
+#clearLocal{
+    border: none;
+    font-weight: 700;
+    padding: 1.2em 1rem;
+    color: #4a4a4a;
+    border-radius: 30px;
+
+    /* background: linear-gradient(90deg, rgba(211,211,243,1) 0%, rgba(217,244,241,1) 100%); */
+    background: linear-gradient(15deg, #d5acd5, #e6c1d4, #f5d1d3, #fbd9c7, #fbe4bb, #fbd9c7, #f5d1d3, #e6c1d4, #d5acd5) no-repeat;
+    background-size: 300%;
+    
+    background-position: left center;
+    box-shadow: 0 30px 10px -20px rgba(0,0,0,.2);
+
+    cursor: pointer;
+    transition: background .3s ease;
+    
+    &:hover{
+        background-size: 320%;
+        background-position: right center;
+        
+    }
+}
+
+/* ----------------------------------------modal----------------------------------------  */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 3rem;
+  }
+/* The Close Button */
+.closeModal {
+    color: black;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+  }
+  
+  .closeModal:hover,
+  .closeModal:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
