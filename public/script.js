@@ -8,7 +8,6 @@ const heart = document.querySelector('.heart')
 
 let openedWindows = JSON.parse(localStorage.getItem('openedWindow')) || [0];
 let favoriteCitations = JSON.parse(localStorage.getItem('favoriteCitations')) || [];
-console.log(favoriteCitations);
 
     
 //couleurs utilisées
@@ -165,23 +164,36 @@ function addCitationToFavorite(citationId){
 
     // met à jour le localstorage
     localStorage.setItem('favoriteCitations', JSON.stringify(favoriteCitations));
+
+    //ferme le modal et affiche la citation à la suite des autres
+    closeModal() 
+    showCitation(citationId)
 }
 
-
-favoriteCitations.forEach(element => {
+//crée une card citation dans le container
+function showCitation(element){
     const citationContainer = document.getElementById('citations')
     
     let citationCard = document.createElement('div')
     citationCard.classList.add('citation')
     citationCard.innerHTML =`
         <p>${citations[element]}</p>
+        <span class="deleteCitation" onclick="deleteCitation(${element})">&times;</span>
     `
     citationContainer.appendChild(citationCard)
-    
-});
-    
+}
 
+//supprime une citation des fav
+function deleteCitation(citationId){
+    //filtre le tableau pour en retourner un nouveau sans l'id de la citation à supprimer
+    favoriteCitations = favoriteCitations.filter(id => id !== citationId)
+    // met à jour le localstorage
+    localStorage.setItem('favoriteCitations', JSON.stringify(favoriteCitations))
 
+    location.reload();
+}
+
+favoriteCitations.forEach(element => { showCitation(element) })
 
 // *********************************flocons*********************************
 function createSnowEffect() {
