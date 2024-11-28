@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="public/style.css">
     <title>Calendrier de l'Avent</title>
 </head>
 <body>
     <div id="wrapper">
         <!--pop up citation -->
-        <div class="modal">
-            <div class="modal-content">
-                <p class="modal-citation"></p>
-                <span class="closeModal">&times;</span>
-            </div>
-        </div>
+        <div class="modal"></div>
 
         <h1>Calendrier de l'Avent</h1>
 
@@ -22,8 +18,16 @@
             <button id="clearLocal">Remettre à 0</button>
         </p>
 
-        <div id="calendar">
-        </div>
+        <!--calendrier--> 
+        <div id="calendar"></div>
+
+        <!--citations-->
+        <h2>Citations favorites</h2>
+        <div id="citations"></div>
+
+       <!--flocon de neige--> 
+       <div id="snow-container"></div>
+
     </div>
     
     <script src="public/script.js"></script>

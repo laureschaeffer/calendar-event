@@ -3,16 +3,17 @@
 //elements du dom
 const calendar = document.getElementById('calendar')
 const modal = document.querySelector('.modal')
-const modalCitation = document.querySelector('.modal-citation')
-const closeModalBtn = document.querySelector('.closeModal')
 const clearLocalBtn = document.getElementById('clearLocal')
+const heart = document.querySelector('.heart')
 
-const openedWindows = JSON.parse(localStorage.getItem('openedWindow')) || [0];
-console.log(openedWindows);
+let openedWindows = JSON.parse(localStorage.getItem('openedWindow')) || [0];
+let favoriteCitations = JSON.parse(localStorage.getItem('favoriteCitations')) || [];
+console.log(favoriteCitations);
+
     
 //couleurs utilisées
 const colors = [
-    "#8dae87", "#b6d3c2", "#c4e3e3", "#f3d1d1","#cd5c44","#f9edcc","#ded8f5", "#e0c3fc","#fcd1e3","#fff5e6","#d3d3f3","#b5e3cd","#f6e5f9","#e6f7f9","#cce5ff","#d3f6e3","#f7e6cc","#fde9e9","#65bcb8","#f2d59e","#e6f2d9","#e8e4f7","#ffe6f2","#d9f4f1"  
+    "#8dae87", "#b6d3c2", "#c4e3e3", "#f3d1d1","#cd5c44","#f9edcc","#ded8f5", "#e0c3fc","#fcd1e3","#fff5e6","#d3d3f3","#b5e3cd","#f6e5f9","#e6f7f9","#cce5ff","#d3f6e3","#f7e6cc","#d46f5a","#65bcb8","#f2d59e","#e6f2d9","#e8e4f7","#ffe6f2","#d9f4f1"  
 ];
 
 //nb de jours pour le calendrier
@@ -49,7 +50,8 @@ const citations = [
 const shuffledNumbers = shuffleArray(numbers);
 const shuffledColors = shuffleArray(colors);
 
-const windows = [] //tableau vide
+
+let windows = [] //tableau vide
 
 // ----------------------------------------------------------- FONCTIONS -----------------------------------------------------------
 
@@ -57,8 +59,7 @@ const windows = [] //tableau vide
 shuffledNumbers.forEach(number => {
     windows.push({
         "id": number,
-        "color": shuffledColors[number],
-        "citation": citations[number]
+        "color": shuffledColors[number]
     })
 });
 
@@ -75,6 +76,8 @@ function shuffleArray(array) {
     }
     return array;
 }
+
+// *********************************fenetres calendrier*********************************
 
 // crée le boutton, ajoute une classe window, un data-attribute avec l'id, le numéro du jour et une couleur
 function createWindow(element){
@@ -108,8 +111,9 @@ function addOpenWindow(button){
         button.classList.add('open')
 
         // ouvre le modal et affiche la citation associée
-        modal.style.display="initial"
-        modalCitation.innerHTML = windows[button.dataset.id].citation
+        showModal(button)
+
+        createSnowEffect()
     } else {
         alert("veuillez ouvrir la fenetre d'avant!");
     }
@@ -126,6 +130,26 @@ domWindows.forEach(button => {
     })
 })
 
+// *********************************modal*********************************
+function showModal(button){    
+    modal.style.display="initial"
+
+    let modalContent = document.createElement('div')
+    modalContent.classList.add('modal-content')
+    modalContent.innerHTML =`
+        <p class="modal-citation">${citations[(button.dataset.id - 1)]}</p>
+        <span class="heart" onclick="addCitationToFavorite(${button.dataset.id - 1})"><i class="fa-regular fa-heart"></i></span>
+        <span class="closeModal" onclick="closeModal()">&times;</span>
+    `
+    modal.appendChild(modalContent)
+    
+}
+
+// ferme le modal avec le bouton
+function closeModal() {
+    modal.style.display = "none"; 
+}
+
 //recommencer le calendrier
 clearLocalBtn.addEventListener("click", () => {
     localStorage.clear();
@@ -133,7 +157,59 @@ clearLocalBtn.addEventListener("click", () => {
     location.reload();
 })
 
-// ferme le modal avec le bouton
-closeModalBtn.onclick = () => {
-    modal.style.display = "none"; 
+
+// *********************************citations*********************************
+// ajoute citation aux favoris
+function addCitationToFavorite(citationId){
+    favoriteCitations.push(citationId);
+
+    // met à jour le localstorage
+    localStorage.setItem('favoriteCitations', JSON.stringify(favoriteCitations));
 }
+
+
+favoriteCitations.forEach(element => {
+    const citationContainer = document.getElementById('citations')
+    
+    let citationCard = document.createElement('div')
+    citationCard.classList.add('citation')
+    citationCard.innerHTML =`
+        <p>${citations[element]}</p>
+    `
+    citationContainer.appendChild(citationCard)
+    
+});
+    
+
+
+
+// *********************************flocons*********************************
+function createSnowEffect() {
+    const snowContainer = document.getElementById('snow-container');
+    const snowflakes = []; // flocons créés
+  
+    // genere 50 flocons de neige
+    for (let i = 0; i < 50; i++) {
+      const snowflake = document.createElement('div')
+
+      snowflake.classList.add('snowflake')
+      snowflake.textContent = '❄'
+      snowflake.style.left = Math.random() * 100 + 'vw' // position aleatoire
+      snowflake.style.animationDuration = Math.random() * 3 + 2 + 's' // durée aleatoire
+      snowflake.style.fontSize = Math.random() * 1.5 + 0.5 + 'rem' // taille aleatoire
+  
+      snowContainer.appendChild(snowflake)
+      snowflakes.push(snowflake) // ajoute le flocon au tableau
+  
+      // supprime chaque flocon apres son animation
+      snowflake.addEventListener('animationend', () => {
+        snowflake.remove()
+      })
+    }
+  
+    // nettoie tous les flocons après 5 secondes
+    setTimeout(() => {
+      snowflakes.forEach(flake => flake.remove())
+    }, 5000);
+}
+
