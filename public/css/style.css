@@ -7,7 +7,7 @@
     font-family: "Nanum Gothic", sans-serif;
 }
 #wrapper {
-    background-image: url('christmas-5740363_1280.png');
+    background-image: url('../christmas-5740363_1280.png');
     min-height: 100vh; 
     width: 100%;
     padding-top: 5rem;

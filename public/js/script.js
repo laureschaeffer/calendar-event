@@ -1,5 +1,4 @@
 //----------------------------------------------------------- VARIABLES ET CONSTANTES -----------------------------------------------------------
-
 //elements du dom
 const calendar = document.getElementById('calendar')
 const modal = document.querySelector('.modal')
@@ -114,7 +113,7 @@ function addOpenWindow(button){
 
         createSnowEffect()
     } else {
-        alert("veuillez ouvrir la fenetre d'avant!");
+        window.FlashMessage.error("Veuillez ouvrir la fenetre d'avant!");
     }
 
     //met à jour le localstorage
@@ -133,14 +132,12 @@ domWindows.forEach(button => {
 function showModal(button){    
     modal.style.display="initial"
 
-    let modalContent = document.createElement('div')
-    modalContent.classList.add('modal-content')
+    let modalContent = document.querySelector('.modal-content')
     modalContent.innerHTML =`
         <p class="modal-citation">${citations[(button.dataset.id - 1)]}</p>
         <span class="heart" onclick="addCitationToFavorite(${button.dataset.id - 1})"><i class="fa-regular fa-heart"></i></span>
         <span class="closeModal" onclick="closeModal()">&times;</span>
     `
-    modal.appendChild(modalContent)
     
 }
 
@@ -152,7 +149,7 @@ function closeModal() {
 //recommencer le calendrier
 clearLocalBtn.addEventListener("click", () => {
     localStorage.clear();
-    window.alert("Calendrier remis à 0")
+    window.FlashMessage.success("Calendrier remis à 0");
     location.reload();
 })
 
@@ -167,6 +164,7 @@ function addCitationToFavorite(citationId){
 
     //ferme le modal et affiche la citation à la suite des autres
     closeModal() 
+    window.FlashMessage.success("Citation ajoutée aux favoris");
     showCitation(citationId)
 }
 
