@@ -7,13 +7,10 @@
     font-family: "Nanum Gothic", sans-serif;
 }
 #wrapper {
-    background-image: url('../christmas-5740363_1280.png');
+    background-image: url('../img/calendar2.webp');
     min-height: 100vh; 
     width: 100%;
     padding-top: 5rem;
-    /* background-repeat: no-repeat; 
-    background-size: 100% 100%; 
-    background-position: center;  */
 }
 
 h1{
@@ -45,7 +42,7 @@ h2{
     padding-top: 5rem;
 }
 
-.window{
+/* .window{
     height: 100px;
     width: 100px;
     cursor: pointer;
@@ -57,7 +54,54 @@ h2{
     &:hover{
         filter: brightness(0.8);
     }
-}
+} */
+
+.window {
+
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .window::before,
+  .window::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 60%);
+    opacity: 0.3;
+    filter: blur(3px);
+    mix-blend-mode: screen;
+    animation: sparkle 3s infinite ease-in-out;
+  }
+  
+  .window::after {
+    animation-delay: 1.5s;
+  }
+  
+  @keyframes sparkle {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0.1;
+    }
+    50% {
+      transform: translate(30%, 30%) scale(1.2);
+      opacity: 1;
+    }
+  }
+
+  
 
 /* fenetres ouvertes */
 .open{

@@ -11,9 +11,36 @@ let favoriteCitations = JSON.parse(localStorage.getItem('favoriteCitations')) ||
 
     
 //couleurs utilisées
+// const colors = [
+//     "#8dae87", "#b6d3c2", "#c4e3e3", "#f3d1d1","#cd5c44","#f9edcc","#ded8f5", "#e0c3fc","#fcd1e3","#fff5e6","#d3d3f3","#b5e3cd","#f6e5f9","#e6f7f9","#cce5ff","#d3f6e3","#f7e6cc","#d46f5a","#65bcb8","#f2d59e","#e6f2d9","#e8e4f7","#ffe6f2","#d9f4f1"  
+// ];
 const colors = [
-    "#8dae87", "#b6d3c2", "#c4e3e3", "#f3d1d1","#cd5c44","#f9edcc","#ded8f5", "#e0c3fc","#fcd1e3","#fff5e6","#d3d3f3","#b5e3cd","#f6e5f9","#e6f7f9","#cce5ff","#d3f6e3","#f7e6cc","#d46f5a","#65bcb8","#f2d59e","#e6f2d9","#e8e4f7","#ffe6f2","#d9f4f1"  
+    "#AEC6FF", // Soft pastel blue
+    "#B39CFF", // Lavender purple
+    "#FFC2E2", // Light pastel pink
+    "#D4A1FF", // Light orchid
+    "#C6E3FF", // Baby blue
+    "#E5CFFF", // Light mauve
+    "#FFCCE5", // Blush pink
+    "#B0DAFF", // Sky pastel blue
+    "#D1C2FF", // Lilac
+    "#FFC8D9", // Soft coral pink
+    "#BBE6FF", // Powder blue
+    "#DAB6FF", // Wisteria purple
+    "#FFD1E8", // Cotton candy pink
+    "#AFC8FF", // Light denim
+    "#C4B1FF", // Pale amethyst
+    "#FFCCE0", // Rosy pink
+    "#ADD8FF", // Ice blue
+    "#DEC5FF", // Light lavender
+    "#FFCBE5", // Peony pink
+    "#9CCAFF", // Morning blue
+    "#C3AFFF", // Soft violet
+    "#FFC3D8", // Pastel rose
+    "#B1DEFF", // Cool aqua blue
+    "#D8B8FF"  // Orchid pastel
 ];
+
 
 //nb de jours pour le calendrier
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
