@@ -42,7 +42,7 @@ h2{
     padding-top: 5rem;
 }
 
-/* .window{
+.window{
     height: 100px;
     width: 100px;
     cursor: pointer;
@@ -50,13 +50,14 @@ h2{
     border-radius: 0.5rem;
     font-size: 1.2rem;
     transition: 0.5s;
+    box-shadow: 0 4px 16px hsl(353deg 100% 8%);
 
     &:hover{
         filter: brightness(0.8);
     }
-} */
+}
 
-.window {
+/* .window {
 
     height: 100px;
     width: 100px;
@@ -99,7 +100,7 @@ h2{
       transform: translate(30%, 30%) scale(1.2);
       opacity: 1;
     }
-  }
+  } */
 
   
 
