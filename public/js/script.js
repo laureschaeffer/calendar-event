@@ -5,7 +5,8 @@ const modal = document.querySelector('.modal')
 const clearLocalBtn = document.getElementById('clearLocal')
 const heart = document.querySelector('.heart')
 
-let openedWindows = JSON.parse(localStorage.getItem('openedWindow')) || [0];
+let openedWindows = JSON.parse(localStorage.getItem('openedWindows')) || [0];
+
 let favoriteCitations = JSON.parse(localStorage.getItem('favoriteCitations')) || [];
 
     
@@ -108,23 +109,24 @@ function addOpenWindow(button){
         openedWindows.push(Number(windowId))
         button.classList.add('open')
 
-        // ouvre le modal et affiche la citation associée
-        showModal(button)
-
         createSnowEffect()
+
+        //si c'est le dernier jour, ouverture de modal différente
+        openedWindows.length == 25 ? endCalendar() : showModal(button)
+
     } else {
         window.FlashMessage.error("Veuillez ouvrir la fenetre d'avant!");
     }
 
     //met à jour le localstorage
-    localStorage.setItem('openedWindow', JSON.stringify(openedWindows)); 
+    localStorage.setItem('openedWindows', JSON.stringify(openedWindows)); 
 }
 
 // ecouteur d'evenement pour chaque fenetre du dom
 domWindows.forEach(button => {
     button.addEventListener('click', function(){
-        // si la fenetre n'est pas déjà ouverte appel de la fonction addopenwindow
-        openedWindows.includes(button.dataset.id) ? console.log("Fenetre déjà ouverte") : addOpenWindow(button)
+        // si la fenetre est ouverte, ouvrir le modal avec la citation, sinon ouvrir la fenetre dans le localstorage + le modal      
+        openedWindows.includes(Number(button.dataset.id)) ? showModal(button) : addOpenWindow(button)
     })
 })
 
@@ -175,7 +177,7 @@ function showCitation(element){
     let citationCard = document.createElement('div')
     citationCard.classList.add('citation')
     citationCard.innerHTML =`
-        <p>${citations[element]}</p>
+        <span>${citations[element]}</span>
         <span class="deleteCitation" onclick="deleteCitation(${element})">&times;</span>
     `
     citationContainer.appendChild(citationCard)
@@ -223,3 +225,34 @@ function createSnowEffect() {
     }, 5000);
 }
 
+// *********************************fin calendrier*********************************
+
+//modal différent si dernier jour : photo, github et musique
+function endCalendar(){
+    modal.style.display="initial"
+
+    let modalContent = document.querySelector('.modal-content')
+    
+    modalContent.innerHTML =`
+    <img src="../../public/img/self.png" alt="picture"> 
+    <div>
+        <p>Ce calendrier de l'avent vous a été présenté par Laure<br> N'hésitez pas à aller voir mon <a href="https://github.com/laureschaeffer" target=_blank>Github</a> !</p>
+        
+        <audio id="audio-surprise" controls>
+        <source src="../../public/surprise.mp3" type="audio/mpeg">
+        Message à afficher en cas de non support de la balise par le navigateur.
+        </audio>
+    </div>
+
+    <span class="closeModal" onclick="closeModal()">&times;</span>
+    `
+
+    // démarre l'audio
+    const audio = document.getElementById('audio-surprise');
+    audio.play();
+    audio.style.display="initial"
+
+}
+
+
+// localStorage.setItem('openedWindows', JSON.stringify([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23])); 
